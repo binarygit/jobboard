@@ -6,6 +6,7 @@
   </head>
   <body>
     <ul>
+      <h2>Jobs from <a href="www.gorails.com/jobs">GoRails</a></h2>
       <% @go_rails_jobs.each do |job| %>
         <li>
           <a href="<%= job[:href] %>"><%= job[:title] %></a>
@@ -13,5 +14,10 @@
         </li>
       <% end %>
     </ul>
+    <footer>
+      <h5>More jobs at:</h5>
+      <a href="./gorails">From gorails</a>
+      <a href="./weworkremotely">From weworkremotely</a>
+    </footer>
   </body>
 </html>
