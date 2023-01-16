@@ -31,15 +31,56 @@ class GoRailsScraper
   end
 end
 
+class WeWorkRemotelyScraper
+  attr_reader :base_url, :scrap_url
+
+  def initialize
+    @scrap_url = 'https://weworkremotely.com/remote-ruby-on-rails-jobs'
+    @base_url = 'https://weworkremotely.com'
+  end
+
+  def scrape
+    doc = Nokogiri::HTML( URI.open(scrap_url) )
+    job_postings = doc.css('.jobs li')
+    # The last element is an li containing the link
+    # to "back to all jobs"
+    # so we discard it
+    job_postings.pop
+    jobs = []
+
+    job_postings.each do |job|
+      anchor_tag = job.css('a')[1]
+      hash = {}
+      hash[:href] = base_url + anchor_tag['href']
+
+      title = job.at_css('.title').text
+      hash[:title] = title
+
+      type = job.css('.company')[1].text
+      region = job.at_css('.region.company').text
+      hash[:misc] = type + "/" + region
+      jobs << hash
+    end
+    jobs
+  end
+end
+
 class PageGenerator
   def initialize
     @go_rails_jobs = GoRailsScraper.new.scrape
+    @wwr_jobs = WeWorkRemotelyScraper.new.scrape
+    @pages = [{ jobs: @go_rails_jobs, file_name: 'gorails.html' },
+              { jobs: @wwr_jobs, file_name: 'weworkremotely.html' }]
+
   end
 
   def generate
-    template = ERB.new File.read('templates/index.html.erb')
-    html = template.result(binding)
-    File.write('templates/gorails.html', html)
+    @pages.each do |page|
+      jobs = page[:jobs]
+      template = ERB.new File.read('templates/index.html.erb')
+      html = template.result(binding)
+      File.write("templates/#{page[:file_name]}", html)
+    end
   end
 end
 

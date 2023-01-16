@@ -6,8 +6,13 @@
   </head>
   <body>
     <ul>
-      <h2>Jobs from <a href="www.gorails.com/jobs">GoRails</a></h2>
-      <% @go_rails_jobs.each do |job| %>
+      <% if page[:file_name] == 'gorails.html' %>
+        <h2>Jobs from <a href="www.gorails.com/jobs">GoRails</a></h2>
+      <% else %>
+        <h2>Jobs from <a href="https://weworkremotely.com/remote-ruby-on-rails-jobs">WeWorkRemotely</a></h2>
+      <% end %>
+
+      <% jobs.each do |job| %>
         <li>
           <a href="<%= job[:href] %>"><%= job[:title] %></a>
           <p><%= job[:misc] %></p>
@@ -16,8 +21,8 @@
     </ul>
     <footer>
       <h5>More jobs at:</h5>
-      <a href="./gorails">From gorails</a><br>
-      <a href="./weworkremotely">From weworkremotely</a><br>
+      <a href="./gorails.html">From gorails</a><br>
+      <a href="./weworkremotely.html">From weworkremotely</a><br>
     </footer>
   </body>
 </html>
