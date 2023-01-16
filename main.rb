@@ -37,9 +37,9 @@ class PageGenerator
   end
 
   def generate
-    template = ERB.new File.read('index.html.erb')
+    template = ERB.new File.read('templates/index.html.erb')
     html = template.result(binding)
-    File.write('index.html', html)
+    File.write('templates/index.html', html)
   end
 end
 
