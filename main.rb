@@ -39,7 +39,7 @@ class PageGenerator
   def generate
     template = ERB.new File.read('templates/index.html.erb')
     html = template.result(binding)
-    File.write('templates/index.html', html)
+    File.write('templates/gorails.html', html)
   end
 end
 
