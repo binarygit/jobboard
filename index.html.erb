@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <ul>
+      <% @go_rails_jobs.each do |job| %>
+        <li>
+          <a href="<%= job[:href] %>"><%= job[:title] %></a>
+          <p><%= job[:misc] %></p>
+        </li>
+      <% end %>
+    </ul>
+  </body>
+</html>

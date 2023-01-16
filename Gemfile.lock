@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    cgi (0.3.6)
+    erb (4.0.2)
+      cgi (>= 0.3.3)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     racc (1.6.2)
@@ -9,6 +12,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  erb
   nokogiri
 
 RUBY VERSION
