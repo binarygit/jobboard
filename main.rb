@@ -32,20 +32,22 @@ class GoRailsScraper
 end
 
 class WeWorkRemotelyScraper
-  attr_reader :base_url, :scrap_url
+  attr_reader :base_url
 
   def initialize
-    @scrap_url = 'https://weworkremotely.com/remote-ruby-on-rails-jobs'
-    @base_url = 'https://weworkremotely.com'
+    @base_url = 'https://weworkremotely.com/remote-ruby-on-rails-jobs'
   end
 
   def scrape
-    doc = Nokogiri::HTML( URI.open(scrap_url) )
+    doc = Nokogiri::HTML( URI.open(base_url) )
     job_postings = doc.css('.jobs li')
     # The last element is an li containing the link
     # to "back to all jobs"
     # so we discard it
     job_postings.pop
+    # Redefine the base url so that
+    # href links are correct
+    @base_url = 'https://weworkremotely.com'
     jobs = []
 
     job_postings.each do |job|
