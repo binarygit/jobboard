@@ -8,8 +8,10 @@
     <ul>
       <% if page[:file_name] == 'gorails.html' %>
         <h2>Jobs from <a href="www.gorails.com/jobs">GoRails</a></h2>
-      <% else %>
+      <% elsif page[:file_name] == 'weworkremotely.html' %>
         <h2>Jobs from <a href="https://weworkremotely.com/remote-ruby-on-rails-jobs">WeWorkRemotely</a></h2>
+      <% else %>
+        <h2>Jobs from <a href="https://www.ruby-on-rails-jobs.com">From RubyOnRailsJobs</a></h2>
       <% end %>
 
       <% jobs.each do |job| %>
@@ -23,6 +25,7 @@
       <h5>More jobs at:</h5>
       <a href="./gorails.html">From gorails</a><br>
       <a href="./weworkremotely.html">From weworkremotely</a><br>
+      <a href="./rorjobs.html">From RubyOnRailsJobs</a><br>
     </footer>
   </body>
 </html>

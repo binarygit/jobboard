@@ -65,12 +65,43 @@ class WeWorkRemotelyScraper
   end
 end
 
+class RubyOnRailsJobsScraper
+  attr_reader :base_url
+
+  def initialize
+    @base_url = 'https://www.ruby-on-rails-jobs.com'
+  end
+
+  def scrape
+    doc = Nokogiri::HTML( URI.open(base_url) )
+    job_postings = doc.css('div[id^=job]')
+    jobs = []
+
+    job_postings.each do |job|
+      anchor_tag = job.at_css('a')
+      hash = {}
+      hash[:href] = base_url + anchor_tag['href']
+
+      title = job.at_css('span.h5 + span').text
+      hash[:title] = title
+
+      misc = job.at_css('div:last-child').at_css('div:last-child').text
+      hash[:misc] = misc.strip.gsub("\n", " ")
+      jobs << hash
+    end
+    jobs
+  end
+end
+
 class PageGenerator
   def initialize
     @go_rails_jobs = GoRailsScraper.new.scrape
     @wwr_jobs = WeWorkRemotelyScraper.new.scrape
+    @ror_jobs = RubyOnRailsJobsScraper.new.scrape
     @pages = [{ jobs: @go_rails_jobs, file_name: 'gorails.html' },
-              { jobs: @wwr_jobs, file_name: 'weworkremotely.html' }]
+              { jobs: @wwr_jobs, file_name: 'weworkremotely.html' },
+              { jobs: @ror_jobs, file_name: 'rorjobs.html' },
+    ]
 
   end
 
