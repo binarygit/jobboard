@@ -12,3 +12,6 @@ weworkremotely.scrape_and_generate_page
 
 rubyonremote = RubyOnRemote.new
 rubyonremote.scrape_and_generate_page
+
+rubyonrailsjobs = RubyOnRailsJobs.new
+rubyonrailsjobs.scrape_and_generate_page
