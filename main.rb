@@ -9,3 +9,6 @@ gorails.scrape_and_generate_page
 
 weworkremotely = WeWorkRemotely.new
 weworkremotely.scrape_and_generate_page
+
+rubyonremote = RubyOnRemote.new
+rubyonremote.scrape_and_generate_page
