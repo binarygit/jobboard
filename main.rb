@@ -6,3 +6,6 @@ end
 
 gorails = GoRails.new
 gorails.scrape_and_generate_page
+
+weworkremotely = WeWorkRemotely.new
+weworkremotely.scrape_and_generate_page
