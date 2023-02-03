@@ -1,7 +1,6 @@
 #!/usr/bin/ruby
 require 'nokogiri'
 require 'open-uri'
-require 'debug'
 require_relative '../modules/page_generator'
 
 class GoRails
