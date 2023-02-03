@@ -1,9 +1,8 @@
 require 'debug'
 require 'erb'
-require_relative './scrapers/gorails_scraper'
-require_relative './scrapers/weworkremotely_scraper'
-require_relative './scrapers/rubyonrailsjobs_scraper'
-require_relative './scrapers/rubyonremote_scraper'
+Dir.new('./scrapers').children.each do |file|
+  require_relative "./scrapers/#{file}"
+end
 
 class PageGenerator
   def generate(page)
