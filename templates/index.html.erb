@@ -2,18 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>All Ruby Jobs</title>
   </head>
   <body>
     <ul>
-      <% if page[:file_name] == 'gorails.html' %>
-        <h2>Jobs from <a href="www.gorails.com/jobs">GoRails</a></h2>
-      <% elsif page[:file_name] == 'weworkremotely.html' %>
-        <h2>Jobs from <a href="https://weworkremotely.com/remote-ruby-on-rails-jobs">WeWorkRemotely</a></h2>
-      <% else %>
-        <h2>Jobs from <a href="https://www.ruby-on-rails-jobs.com">From RubyOnRailsJobs</a></h2>
-      <% end %>
-
+      <h2>Jobs from <a href="<%= base_url %>"><%= site_name %></a></h2>
       <% jobs.each do |job| %>
         <li>
           <a href="<%= job[:href] %>"><%= job[:title] %></a>
@@ -21,11 +14,6 @@
         </li>
       <% end %>
     </ul>
-    <footer>
-      <h5>More jobs at:</h5>
-      <a href="./gorails.html">From gorails</a><br>
-      <a href="./weworkremotely.html">From weworkremotely</a><br>
-      <a href="./rorjobs.html">From RubyOnRailsJobs</a><br>
-    </footer>
+    <%= footer %>
   </body>
 </html>
