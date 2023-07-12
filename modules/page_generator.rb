@@ -4,7 +4,7 @@ module PageGenerator
   def generate_page
     template = ERB.new File.read('templates/index.html.erb')
     html = template.result(binding)
-    File.write("templates/#{file_name}", html)
+    File.write("jobpages/#{file_name}", html)
   end
 
   private
@@ -21,7 +21,7 @@ module PageGenerator
     str = <<~FOOTER
     <footer class="footer">
       <h5>More jobs at:</h5>
-      <div>
+      <div class="flex">
         <a href="./gorails.html">From GoRails</a><br>
         <a href="./weworkremotely.html">From WeWorkRemotely</a><br>
         <a href="./rubyonrailsjobs.html">From RubyOnRailsJobs</a><br>
