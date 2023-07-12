@@ -1,0 +1,18 @@
+body {
+  background: url('./background.png')
+}
+
+.container {
+  height: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.main {
+  margin: 0;
+  background: #007cff0d;
+}
+
+.footer {
+  background: #8080803b;
+}

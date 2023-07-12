@@ -19,12 +19,14 @@ module PageGenerator
 
   def footer
     str = <<~FOOTER
-    <footer>
+    <footer class="footer">
       <h5>More jobs at:</h5>
-      <a href="./gorails.html">From GoRails</a><br>
-      <a href="./weworkremotely.html">From WeWorkRemotely</a><br>
-      <a href="./rubyonrailsjobs.html">From RubyOnRailsJobs</a><br>
-      <a href="./rubyonremote.html">From RubyOnRemote</a><br>
+      <div>
+        <a href="./gorails.html">From GoRails</a><br>
+        <a href="./weworkremotely.html">From WeWorkRemotely</a><br>
+        <a href="./rubyonrailsjobs.html">From RubyOnRailsJobs</a><br>
+        <a href="./rubyonremote.html">From RubyOnRemote</a><br>
+      </div>
     </footer>
     FOOTER
     str.sub(/.*#{site_name}.*/, "")
