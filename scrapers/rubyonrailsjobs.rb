@@ -18,8 +18,6 @@ class RubyOnRailsJobs
     puts "#{site_name} page has been successfully generated!"
   end
 
-  private
-
   def scrape
     doc = Nokogiri::HTML(URI.open(base_url))
     job_postings = doc.css('div[id^=job]')
@@ -34,6 +32,8 @@ class RubyOnRailsJobs
 
       misc = job.at_css('div:last-child').at_css('div:last-child').text
       hash[:misc] = misc.strip.gsub("\n", " ")
+      hash[:misc].gsub!(Regexp.new('Icons/solid/[^\s]+'), "")
+      hash[:misc].sub!(/.*marker/, '')
       jobs << hash
     end
   end
