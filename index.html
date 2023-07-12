@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+  <link rel="stylesheet" href="./templates/style.css">
+  <title>All Ruby Jobs</title>
+</head>
+<body>
+  <div class="container">
+    <div class="main">
+      <h1>Hi!</h1>
+      <p>I got tired of navigating between: </p>
+      <ul>
+        <li><a href="https://jobs.gorails.com/">Gorails</a></li>
+        <li><a href="https://weworkremotely.com/">Weworkremotely</a></li>
+        <li><a href="https://rubyonremote.com/">Ruby on Remote</a></li>
+        <li><a href="https://www.rorjobs.com/">Ruby on Rails jobs</a></li>
+      </ul>
+      <p>So, I decided to scrape these pages and put them here.</p>
+      <p>I feel easier to scan them this way.</p>
+      <div>
+        <p>An unintented consequence was that I learnt a few things about creating a scraper<br>
+           and using erb (outside of rails) to generate html pages.</p>
+      </div>
+    </div>
+    <footer class="footer">
+      <h5>Here are my pages:</h5>
+      <div class="flex">
+        <a href="./jobpages/gorails.html">From GoRails</a><br>
+        <a href="./jobpages/weworkremotely.html">From WeWorkRemotely</a><br>
+        <a href="./jobpages/rubyonrailsjobs.html">From RubyOnRailsJobs</a><br>
+        <a href="./jobpages/rubyonremote.html">From RubyOnRemote</a><br>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
