@@ -26,6 +26,7 @@ module PageGenerator
         <a href="./weworkremotely.html">From WeWorkRemotely</a><br>
         <a href="./rubyonrailsjobs.html">From RubyOnRailsJobs</a><br>
         <a href="./rubyonremote.html">From RubyOnRemote</a><br>
+        <a href="./railshotwirejobs.html">From RailsHotwireJobs</a><br>
       </div>
     </footer>
     FOOTER

@@ -15,3 +15,6 @@ rubyonremote.scrape_and_generate_page
 
 rubyonrailsjobs = RubyOnRailsJobs.new
 rubyonrailsjobs.scrape_and_generate_page
+
+railshotwirejobs = RailsHotwireJobs.new
+railshotwirejobs.scrape_and_generate_page
