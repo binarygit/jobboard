@@ -9,7 +9,7 @@ access_log = [
       [log_file, WEBrick::AccessLog::COMBINED_LOG_FORMAT],
 ]
 
-server = WEBrick::HTTPServer.new :Port => 80, :DocumentRoot => root
+server = WEBrick::HTTPServer.new :Port => 8000, :DocumentRoot => root
 
 trap 'INT' do server.shutdown end
 

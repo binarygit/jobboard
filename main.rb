@@ -1,20 +1,36 @@
 require 'debug'
 require 'erb'
+require 'json'
+
 Dir.new('./scrapers').children.each do |file|
   require_relative "./scrapers/#{file}"
 end
 
-gorails = GoRails.new
-gorails.scrape_and_generate_page
+class SiteBuilder
+  attr_reader :site_names, :pages
 
-weworkremotely = WeWorkRemotely.new
-weworkremotely.scrape_and_generate_page
+  def initialize
+    @site_names = ["GoRails", "WeWorkRemotely", "RubyOnRemote",
+                   "RubyOnRailsJobs", "RailsHotwireJobs"]
+    @pages = {}
+  end
 
-rubyonremote = RubyOnRemote.new
-rubyonremote.scrape_and_generate_page
+  def create_site
+    site_names.each do |name|
+      page = Object.const_get(name).new
+      page.scrape_and_generate_page
+      pages[name.downcase.to_s] = page
+    end
 
-rubyonrailsjobs = RubyOnRailsJobs.new
-rubyonrailsjobs.scrape_and_generate_page
+    File.open('jobs.json', 'w') do |f|
+      all_jobs = []
+      pages.each do |key, val|
+        all_jobs << val.jobs
+      end
+      f.write(JSON.dump(all_jobs))
+    end
+  end
+end
 
-railshotwirejobs = RailsHotwireJobs.new
-railshotwirejobs.scrape_and_generate_page
+sb = SiteBuilder.new
+sb.create_site
