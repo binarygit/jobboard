@@ -1,17 +1,10 @@
 #!/usr/bin/env ruby
-# Require the OptionParser code.
 require 'optparse'
 require 'tempfile'
 require 'json'
 require 'debug'
-# Create an OptionParser object.
-parser = OptionParser.new
-class String
-  # colorization
-  def colorize(color_code)
-    "\e[#{color_code}m#{self}\e[0m"
-  end
 
+class String
   def red
     colorize(31)
   end
@@ -19,53 +12,77 @@ class String
   def light_blue
     colorize(36)
   end
+
+  private
+
+  def colorize(color_code)
+    "\e[#{color_code}m#{self}\e[0m"
+  end
+
 end
 
-def search_for(str)
-  jobs = JSON.parse File.read('./jobs.json')
-  result = []
-  jobs.each do |arr_of_hash|
-    result << arr_of_hash.select do |job|
-      job["title"].match?(/#{str}/i) || job["misc"].match?(/#{str}/i)
+class ShowJob
+  attr_reader :jobs
+
+  def initialize
+    @parser = OptionParser.new
+    @jobs   = []
+  end
+
+  def show
+    add_ww_jobs
+    add_senior_jobs
+    @parser.parse!
+    show_jobs
+  end
+
+  private
+
+  def add_senior_jobs
+    @parser.on('--[no-]senior', 'Display only senior or non-senior jobs') do |value|
+      @jobs = @jobs + search_for('senior')
     end
   end
-  result.flatten
-end
 
-parser.on('--[no-]senior', 'Display only senior or non-senior jobs') do |value|
-  jobs = search_for('senior')
-  show_jobs(jobs)
-end
-
-# --us-only
-parser.on('--[no-]ww', 'Display only worldwide or non-worldwide jobs') do |value|
-  jobs = search_for('world')
-  show_jobs(jobs)
-end
-
-def show_jobs(jobs)
-  file = Tempfile.new
-  file.write prettify(jobs)
-  file.close
-  system("less -R #{file.path}")
-  file.unlink
-end
-
-def prettify(jobs)
-  result = "\n"
-  jobs.each do |job|
-    str = job['title'].red + "\n" + remove_whitespace(job['misc'].light_blue) + "\n" + job['href'] + "\n"
-    result << str
-    result << "-------------------------\n\n"
+  def add_ww_jobs
+    # --us-only
+    @parser.on('--[no-]ww', 'Display only worldwide or non-worldwide jobs') do |value|
+      @jobs = @jobs + search_for('world')
+    end
   end
-  result
+
+  def search_for(str)
+    jobs = JSON.parse File.read('./jobs.json')
+    result = []
+    jobs.each do |arr_of_hash|
+      result << arr_of_hash.select do |job|
+        job["title"].match?(/#{str}/i) || job["misc"].match?(/#{str}/i)
+      end
+    end
+    result.flatten
+  end
+
+  def show_jobs
+    file = Tempfile.new
+    file.write prettify(@jobs.uniq)
+    file.close
+    system("less -R #{file.path}")
+    file.unlink
+  end
+
+  def prettify(jobs)
+    result = "\n"
+    jobs.each do |job|
+      str = job['title'].red + "\n" + remove_whitespace(job['misc'].light_blue) + "\n" + job['href'] + "\n"
+      result << str
+      result << "-------------------------\n\n"
+    end
+    result
+  end
+
+  def remove_whitespace(str)
+    str.split(" ").join(' ')
+  end
 end
 
-def remove_whitespace(str)
-  str.split(" ").join(' ')
-end
-
-# Parse the command line and return pared-down ARGV.
-if parser.parse!.empty?
-  puts "hello world".light_blue
-end
+ShowJob.new.show
