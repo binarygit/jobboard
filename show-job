@@ -73,7 +73,10 @@ class ShowJob
   def prettify(jobs)
     result = "\n"
     jobs.each do |job|
-      str = job['title'].red + "\n" + remove_whitespace(job['misc'].light_blue) + "\n" + job['href'] + "\n"
+      # remoteonruby job titles have a newline in them
+      # which causes the colors to break when displaying.
+      # This is why I am removing the newline here.
+      str = job['title'].gsub("\n", "").red + "\n" + remove_whitespace(job['misc'].light_blue) + "\n" + job['href'] + "\n"
       result << str
       result << "-------------------------\n\n"
     end
