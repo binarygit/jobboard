@@ -46,6 +46,10 @@ class ShowJob
     add_senior_jobs
     add_us_only_jobs
     add_no_us_jobs
+    if ARGV.empty?
+      puts @parser.help
+      exit
+    end
     @parser.parse!
     show_jobs
   end
