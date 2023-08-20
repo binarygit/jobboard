@@ -56,14 +56,18 @@ class ShowJob
 
   private
 
+  # Add support for non-senior jobs
+  # non senior jobs donot contain the word senior in there
   def add_senior_jobs
-    @parser.on('--[no-]senior', 'Display only senior or non-senior jobs') do |value|
+    @parser.on('--senior', 'Display only senior jobs') do |value|
       @jobs = @jobs + search_for('senior')
     end
   end
 
+  # non ww jobs donot contain the word 'world'
+  # donot_search_for('world')
   def add_ww_jobs
-    @parser.on('--[no-]ww', 'Display only worldwide or non-worldwide jobs') do |value|
+    @parser.on('--ww', 'Display only worldwide jobs') do |value|
       @jobs = @jobs + search_for('world')
     end
   end
