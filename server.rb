@@ -9,9 +9,14 @@ access_log = [
       [log_file, WEBrick::AccessLog::COMBINED_LOG_FORMAT],
 ]
 
-server = WEBrick::HTTPServer.new :Port => 8000, :DocumentRoot => root
+log_analytics = proc do |req|
+  file = File.open('analytics', 'a+')
+  file << "#{Time.now.utc},#{req.path}\n"
+  file.close
+end
+
+server = WEBrick::HTTPServer.new(:Port => 8000, :DocumentRoot => root, :RequestCallback => log_analytics)
 
 trap 'INT' do server.shutdown end
 
 WEBrick::Daemon.start
-server.start
